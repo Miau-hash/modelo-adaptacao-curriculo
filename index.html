@@ -109,11 +109,11 @@
             y = addSection(doc, "5. Competências e Habilidades Alinhadas:", document.getElementById("competencias").value || "Não preenchido", y);
             y = addSection(doc, "6. Palavras-chave Utilizadas:", document.getElementById("palavras").value || "Não preenchido", y);
 
-            // Criar um Blob corretamente
+            // Criar um Blob corretamente e forçar o download
             const pdfBlob = doc.output("blob");
             const pdfURL = URL.createObjectURL(pdfBlob);
-            
-            // Criar um link invisível para abrir corretamente em qualquer navegador
+
+            // Criar um link invisível e simular um clique para forçar o download corretamente
             const link = document.createElement("a");
             link.href = pdfURL;
             link.download = "curriculo_adaptado.pdf";
