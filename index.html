@@ -84,6 +84,7 @@
             doc.setFontSize(14);
 
             function addSection(doc, title, text, yPosition) {
+                yPosition += 5; // Adiciona espaço extra antes do título
                 doc.setFontSize(16); // Títulos maiores e em negrito
                 doc.setFont("times", "bold");
                 doc.text(title, 20, yPosition);
@@ -93,14 +94,14 @@
                 let splitText = doc.splitTextToSize(text, 170);
                 doc.text(splitText, 20, yPosition + 10); // Aumentado o espaço entre título e conteúdo
                 
-                return yPosition + splitText.length * 7 + 15; // Ajuste de altura para maior espaçamento
+                return yPosition + splitText.length * 7 + 20; // Ajuste de altura para maior espaçamento
             }
 
             let y = 20;
             doc.setFontSize(18);
             doc.setFont("times", "bold");
             doc.text("Modelo de Adaptação de Currículo", 20, y);
-            y += 15;
+            y += 20;
 
             y = addSection(doc, "1. Nome da Vaga e Empresa:", document.getElementById("vaga").value || "Não preenchido", y);
             y = addSection(doc, "2. Descrição da Vaga:", document.getElementById("descricao").value || "Não preenchido", y);
