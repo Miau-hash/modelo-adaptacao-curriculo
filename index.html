@@ -81,7 +81,11 @@
 
             // Criar a aba antes da geração do PDF (para evitar bloqueios)
             const newWindow = window.open("", "_blank");
-
+            if (!newWindow) {
+                alert("O seu navegador bloqueou a abertura da nova aba. Permita pop-ups para visualizar o PDF.");
+                return;
+            }
+            
             doc.setFont("times", "normal");
             doc.setFontSize(14);
 
@@ -112,11 +116,10 @@
             y = addSection(doc, "5. Competências e Habilidades Alinhadas:", document.getElementById("competencias").value || "Não preenchido", y);
             y = addSection(doc, "6. Palavras-chave Utilizadas:", document.getElementById("palavras").value || "Não preenchido", y);
 
-            // Criar um Blob corretamente e abrir dentro da aba já criada
+            // Criar um Blob corretamente e carregar dentro da aba aberta
             const pdfBlob = doc.output("blob");
             const pdfURL = URL.createObjectURL(pdfBlob);
-
-            newWindow.location.href = pdfURL; // Carregar o PDF na aba aberta
+            newWindow.location.href = pdfURL;
         }
     </script>
 </body>
