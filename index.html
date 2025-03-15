@@ -79,22 +79,21 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            // Configurar fonte compatível com UTF-8
             doc.setFont("times", "normal");
             doc.setFontSize(14);
 
             function addSection(doc, title, text, yPosition) {
-                yPosition += 3; // Ajuste fino para reduzir o espaço excessivo antes do título
-                doc.setFontSize(16); // Títulos maiores e em negrito
+                yPosition += 3;
+                doc.setFontSize(16);
                 doc.setFont("times", "bold");
                 doc.text(title, 20, yPosition);
                 
                 doc.setFontSize(12);
                 doc.setFont("times", "normal");
                 let splitText = doc.splitTextToSize(text, 170);
-                doc.text(splitText, 20, yPosition + 8); // Ajuste menor para reduzir espaço após título
+                doc.text(splitText, 20, yPosition + 8);
                 
-                return yPosition + splitText.length * 7 + 12; // Ajuste de altura mais controlado
+                return yPosition + splitText.length * 7 + 12;
             }
 
             let y = 20;
@@ -110,7 +109,21 @@
             y = addSection(doc, "5. Competências e Habilidades Alinhadas:", document.getElementById("competencias").value || "Não preenchido", y);
             y = addSection(doc, "6. Palavras-chave Utilizadas:", document.getElementById("palavras").value || "Não preenchido", y);
 
-            doc.save("adaptacao_curriculo.pdf");
+            // SOLUÇÃO: Criar um Blob para que funcione em telemóveis
+            const pdfBlob = doc.output("blob");
+            const pdfUrl = URL.createObjectURL(pdfBlob);
+
+            // Criar um link temporário para abrir o PDF
+            const link = document.createElement("a");
+            link.href = pdfUrl;
+            link.download = "adaptacao_curriculo.pdf";
+
+            // Verificar se está em mobile e abrir no navegador antes de forçar o download
+            if (navigator.userAgent.match(/Android|iPhone|iPad/i)) {
+                window.open(pdfUrl, "_blank");
+            } else {
+                link.click();
+            }
         }
     </script>
 </body>
