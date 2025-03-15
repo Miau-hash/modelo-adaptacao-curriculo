@@ -76,27 +76,27 @@
     
     <script>
         function generatePDF() {
-            const {{ jsPDF }} = window.jspdf;
+            const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
             doc.text("Modelo de Adaptação de Currículo", 20, 20);
-            doc.text("1️⃣ Nome da Oferta de Emprego e Empresa:", 20, 30);
-            doc.text(document.getElementById("vaga").value, 20, 40);
+            doc.text("1️⃣ Nome da Vaga e Empresa:", 20, 30);
+            doc.text(document.getElementById("vaga").value || "Não preenchido", 20, 40);
             
-            doc.text("2️⃣ Descrição da Oferta de Emprego:", 20, 50);
-            doc.text(document.getElementById("descricao").value, 20, 60);
+            doc.text("2️⃣ Descrição da Vaga:", 20, 50);
+            doc.text(document.getElementById("descricao").value || "Não preenchido", 20, 60);
             
             doc.text("3️⃣ Resumo Profissional Adaptado:", 20, 70);
-            doc.text(document.getElementById("resumo").value, 20, 80);
+            doc.text(document.getElementById("resumo").value || "Não preenchido", 20, 80);
             
             doc.text("4️⃣ Experiência Profissional Adaptada:", 20, 90);
-            doc.text(document.getElementById("experiencia").value, 20, 100);
+            doc.text(document.getElementById("experiencia").value || "Não preenchido", 20, 100);
             
             doc.text("5️⃣ Competências e Habilidades Alinhadas:", 20, 110);
-            doc.text(document.getElementById("competencias").value, 20, 120);
+            doc.text(document.getElementById("competencias").value || "Não preenchido", 20, 120);
             
             doc.text("6️⃣ Palavras-chave Utilizadas:", 20, 130);
-            doc.text(document.getElementById("palavras").value, 20, 140);
+            doc.text(document.getElementById("palavras").value || "Não preenchido", 20, 140);
             
             doc.save("adaptacao_curriculo.pdf");
         }
