@@ -109,21 +109,12 @@
             y = addSection(doc, "5. Competências e Habilidades Alinhadas:", document.getElementById("competencias").value || "Não preenchido", y);
             y = addSection(doc, "6. Palavras-chave Utilizadas:", document.getElementById("palavras").value || "Não preenchido", y);
 
-            // SOLUÇÃO: Criar um Blob para que funcione em telemóveis
+            // Criar um Blob para gerar e abrir diretamente o PDF em nova aba
             const pdfBlob = doc.output("blob");
             const pdfUrl = URL.createObjectURL(pdfBlob);
 
-            // Criar um link temporário para abrir o PDF
-            const link = document.createElement("a");
-            link.href = pdfUrl;
-            link.download = "adaptacao_curriculo.pdf";
-
-            // Verificar se está em mobile e abrir no navegador antes de forçar o download
-            if (navigator.userAgent.match(/Android|iPhone|iPad/i)) {
-                window.open(pdfUrl, "_blank");
-            } else {
-                link.click();
-            }
+            // Abrir o PDF em nova aba automaticamente
+            window.open(pdfUrl, "_blank");
         }
     </script>
 </body>
