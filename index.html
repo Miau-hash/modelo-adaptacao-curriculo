@@ -79,37 +79,37 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            // Configurar fonte compatível com acentos
+            // Configurar fonte compatível com caracteres especiais
             doc.setFont("helvetica", "normal");
             doc.setFontSize(12);
 
-            function addTextWithWrap(doc, text, x, y, maxWidth) {
+            function addWrappedText(doc, text, x, y, maxWidth) {
                 let splitText = doc.splitTextToSize(text, maxWidth);
                 doc.text(splitText, x, y);
-                return y + splitText.length * 6; // Ajustar espaçamento
+                return y + splitText.length * 6; // Ajuste da altura
             }
 
             let y = 20;
             doc.text("Modelo de Adaptação de Currículo", 20, y);
             y += 10;
 
-            y = addTextWithWrap(doc, "1️⃣ Nome da Vaga e Empresa:", 20, y, 170);
-            y = addTextWithWrap(doc, document.getElementById("vaga").value || "Não preenchido", 20, y, 170);
+            y = addWrappedText(doc, "1️⃣ Nome da Vaga e Empresa:", 20, y, 170);
+            y = addWrappedText(doc, document.getElementById("vaga").value || "Não preenchido", 20, y, 170);
 
-            y = addTextWithWrap(doc, "2️⃣ Descrição da Vaga:", 20, y + 5, 170);
-            y = addTextWithWrap(doc, document.getElementById("descricao").value || "Não preenchido", 20, y, 170);
+            y = addWrappedText(doc, "2️⃣ Descrição da Vaga:", 20, y + 5, 170);
+            y = addWrappedText(doc, document.getElementById("descricao").value || "Não preenchido", 20, y, 170);
 
-            y = addTextWithWrap(doc, "3️⃣ Resumo Profissional Adaptado:", 20, y + 5, 170);
-            y = addTextWithWrap(doc, document.getElementById("resumo").value || "Não preenchido", 20, y, 170);
+            y = addWrappedText(doc, "3️⃣ Resumo Profissional Adaptado:", 20, y + 5, 170);
+            y = addWrappedText(doc, document.getElementById("resumo").value || "Não preenchido", 20, y, 170);
 
-            y = addTextWithWrap(doc, "4️⃣ Experiência Profissional Adaptada:", 20, y + 5, 170);
-            y = addTextWithWrap(doc, document.getElementById("experiencia").value || "Não preenchido", 20, y, 170);
+            y = addWrappedText(doc, "4️⃣ Experiência Profissional Adaptada:", 20, y + 5, 170);
+            y = addWrappedText(doc, document.getElementById("experiencia").value || "Não preenchido", 20, y, 170);
 
-            y = addTextWithWrap(doc, "5️⃣ Competências e Habilidades Alinhadas:", 20, y + 5, 170);
-            y = addTextWithWrap(doc, document.getElementById("competencias").value || "Não preenchido", 20, y, 170);
+            y = addWrappedText(doc, "5️⃣ Competências e Habilidades Alinhadas:", 20, y + 5, 170);
+            y = addWrappedText(doc, document.getElementById("competencias").value || "Não preenchido", 20, y, 170);
 
-            y = addTextWithWrap(doc, "6️⃣ Palavras-chave Utilizadas:", 20, y + 5, 170);
-            y = addTextWithWrap(doc, document.getElementById("palavras").value || "Não preenchido", 20, y, 170);
+            y = addWrappedText(doc, "6️⃣ Palavras-chave Utilizadas:", 20, y + 5, 170);
+            y = addWrappedText(doc, document.getElementById("palavras").value || "Não preenchido", 20, y, 170);
 
             doc.save("adaptacao_curriculo.pdf");
         }
