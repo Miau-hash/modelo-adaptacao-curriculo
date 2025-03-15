@@ -80,36 +80,34 @@
             const doc = new jsPDF();
 
             // Configurar fonte compatível com caracteres especiais
-            doc.setFont("helvetica", "normal");
-            doc.setFontSize(12);
+            doc.setFont("times", "normal"); // Fonte mais compatível com UTF-8
+            doc.setFontSize(14);
 
-            function addWrappedText(doc, text, x, y, maxWidth) {
-                let splitText = doc.splitTextToSize(text, maxWidth);
-                doc.text(splitText, x, y);
-                return y + splitText.length * 6; // Ajuste da altura
+            function addSection(doc, title, text, yPosition) {
+                doc.setFontSize(16); // Títulos maiores
+                doc.setFont("times", "bold");
+                doc.text(title, 20, yPosition);
+                
+                doc.setFontSize(12);
+                doc.setFont("times", "normal");
+                let splitText = doc.splitTextToSize(text, 170);
+                doc.text(splitText, 20, yPosition + 7);
+                
+                return yPosition + splitText.length * 7 + 5; // Ajuste da altura
             }
 
             let y = 20;
+            doc.setFontSize(18);
+            doc.setFont("times", "bold");
             doc.text("Modelo de Adaptação de Currículo", 20, y);
             y += 10;
 
-            y = addWrappedText(doc, "1️⃣ Nome da Vaga e Empresa:", 20, y, 170);
-            y = addWrappedText(doc, document.getElementById("vaga").value || "Não preenchido", 20, y, 170);
-
-            y = addWrappedText(doc, "2️⃣ Descrição da Vaga:", 20, y + 5, 170);
-            y = addWrappedText(doc, document.getElementById("descricao").value || "Não preenchido", 20, y, 170);
-
-            y = addWrappedText(doc, "3️⃣ Resumo Profissional Adaptado:", 20, y + 5, 170);
-            y = addWrappedText(doc, document.getElementById("resumo").value || "Não preenchido", 20, y, 170);
-
-            y = addWrappedText(doc, "4️⃣ Experiência Profissional Adaptada:", 20, y + 5, 170);
-            y = addWrappedText(doc, document.getElementById("experiencia").value || "Não preenchido", 20, y, 170);
-
-            y = addWrappedText(doc, "5️⃣ Competências e Habilidades Alinhadas:", 20, y + 5, 170);
-            y = addWrappedText(doc, document.getElementById("competencias").value || "Não preenchido", 20, y, 170);
-
-            y = addWrappedText(doc, "6️⃣ Palavras-chave Utilizadas:", 20, y + 5, 170);
-            y = addWrappedText(doc, document.getElementById("palavras").value || "Não preenchido", 20, y, 170);
+            y = addSection(doc, "1️⃣ Nome da Vaga e Empresa:", document.getElementById("vaga").value || "Não preenchido", y);
+            y = addSection(doc, "2️⃣ Descrição da Vaga:", document.getElementById("descricao").value || "Não preenchido", y);
+            y = addSection(doc, "3️⃣ Resumo Profissional Adaptado:", document.getElementById("resumo").value || "Não preenchido", y);
+            y = addSection(doc, "4️⃣ Experiência Profissional Adaptada:", document.getElementById("experiencia").value || "Não preenchido", y);
+            y = addSection(doc, "5️⃣ Competências e Habilidades Alinhadas:", document.getElementById("competencias").value || "Não preenchido", y);
+            y = addSection(doc, "6️⃣ Palavras-chave Utilizadas:", document.getElementById("palavras").value || "Não preenchido", y);
 
             doc.save("adaptacao_curriculo.pdf");
         }
