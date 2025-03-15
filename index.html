@@ -113,13 +113,11 @@
             const pdfBlob = doc.output("blob");
             const pdfURL = URL.createObjectURL(pdfBlob);
             
-            // Criar um link invisível para abrir corretamente em qualquer navegador
-            const link = document.createElement("a");
-            link.href = pdfURL;
-            link.download = "curriculo_adaptado.pdf";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            // Abrir o PDF numa nova aba de forma segura
+            const newWindow = window.open(pdfURL, "_blank");
+            if (!newWindow) {
+                alert("O seu navegador bloqueou a abertura da nova aba. Permita pop-ups para visualizar o PDF.");
+            }
         }
     </script>
 </body>
