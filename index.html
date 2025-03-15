@@ -47,10 +47,22 @@
         .save-btn:hover {
             background: #0056b3;
         }
+        #alert {
+            display: none;
+            background: #ffcc00;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div id="alert">❌ Parece que esta página foi aberta num app que pode bloquear funções do currículo.<br>
+            👉 <a href="#" id="openInBrowser">Clique aqui para abrir no navegador e gerar o PDF corretamente.</a>
+        </div>
         <h2>Modelo de Adaptação de Currículo</h2>
         
         <label for="vaga">1. Nome da Vaga e Empresa:</label>
@@ -75,6 +87,14 @@
     </div>
     
     <script>
+        function checkIfInApp() {
+            let userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            if (/FBAN|FBAV|Instagram|Snapchat|WhatsApp|Twitter|Messenger|Line|LinkedIn|TikTok/i.test(userAgent)) {
+                document.getElementById("alert").style.display = "block";
+                document.getElementById("openInBrowser").href = window.location.href;
+            }
+        }
+        
         function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
@@ -121,6 +141,9 @@
             link.click();
             document.body.removeChild(link);
         }
+
+        // Verificar se a página foi aberta num app que bloqueia funções
+        checkIfInApp();
     </script>
 </body>
 </html>
