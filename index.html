@@ -79,6 +79,9 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
+            // Criar a aba antes da geração do PDF (para evitar bloqueios)
+            const newWindow = window.open("", "_blank");
+
             doc.setFont("times", "normal");
             doc.setFontSize(14);
 
@@ -109,20 +112,11 @@
             y = addSection(doc, "5. Competências e Habilidades Alinhadas:", document.getElementById("competencias").value || "Não preenchido", y);
             y = addSection(doc, "6. Palavras-chave Utilizadas:", document.getElementById("palavras").value || "Não preenchido", y);
 
-            // Criar um Blob corretamente e abrir numa nova aba de forma segura
+            // Criar um Blob corretamente e abrir dentro da aba já criada
             const pdfBlob = doc.output("blob");
             const pdfURL = URL.createObjectURL(pdfBlob);
 
-            // Criar um link invisível e simular um clique para abrir corretamente em todos os navegadores
-            const link = document.createElement("a");
-            link.href = pdfURL;
-            link.target = "_blank";
-            link.style.display = "none";
-            document.body.appendChild(link);
-            link.click();
-
-            // Remover o link da página para evitar resíduos no DOM
-            document.body.removeChild(link);
+            newWindow.location.href = pdfURL; // Carregar o PDF na aba aberta
         }
     </script>
 </body>
