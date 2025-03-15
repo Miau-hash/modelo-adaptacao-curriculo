@@ -109,12 +109,9 @@
             y = addSection(doc, "5. Competências e Habilidades Alinhadas:", document.getElementById("competencias").value || "Não preenchido", y);
             y = addSection(doc, "6. Palavras-chave Utilizadas:", document.getElementById("palavras").value || "Não preenchido", y);
 
-            // Criar um Blob para gerar e abrir diretamente o PDF em nova aba
-            const pdfBlob = doc.output("blob");
-            const pdfUrl = URL.createObjectURL(pdfBlob);
-
-            // Abrir o PDF em nova aba automaticamente
-            window.open(pdfUrl, "_blank");
+            // Criar um Blob para gerar e abrir diretamente o PDF em nova aba sem erro na tela preta
+            const pdfBlob = doc.output("bloburl");
+            window.open(pdfBlob, "_blank");
         }
     </script>
 </body>
